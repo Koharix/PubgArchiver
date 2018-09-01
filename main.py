@@ -1,5 +1,5 @@
 import Logic
 
-player = 'mrwafflesman'
-Logic.getMatchStat(player)
+player = 'Koharix'
+Logic.getPlayerMatchStats(player)
 

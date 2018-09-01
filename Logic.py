@@ -8,15 +8,15 @@ burl = 'https://api.pubg.com/shards/pc-na/'
 KId = 'account.c4e1432d27bd4d9296b7ad058c49172a'
 MId = 'account.c8335a1816ee452ea757695d0b811259'
 
-def searchPlayer(player):
+def getPlayerId(player):
     rurl = 'players?filter[playerNames]=' + player
     r = requests.get(burl+rurl,headers=headers)
-    print(r)
-    print(r.text)
-    return r.text
+    #print(r)
+    #print(r.text)
+    return r
 
 def getMatchId(player):
-    data = searchPlayer(player)
+    data = getPlayerId(player).text
     data = json.load(io.StringIO((data)))
     matchId = data["data"][0]["relationships"]["matches"]["data"][0]["id"]
     print(matchId)
@@ -28,7 +28,18 @@ def getMatchStat(player):
     rurl = 'matches/' + matchId
     r = requests.get(burl + rurl, headers=headers)
     print(r)
-    print(r.text)
+    #print(r.text)
     return r
 
+def getPlayerMatchStats(player):
+    matchStats = json.load(io.StringIO((getMatchStat(player).text)))
+    matchStats = matchStats["included"]
+    for x in matchStats:
+        try:
+            if x["attributes"]["stats"]["playerId"] == KId:
+                playerStats = x["attributes"]["stats"]
+                print(playerStats)
+                return playerStats
+        except KeyError:
+            doNothing = 0
 
