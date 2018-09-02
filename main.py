@@ -1,5 +1,6 @@
 import Logic
 
-player = 'Koharix'
-Logic.storePMSintoPMS(player)
 
+player = 'Koharix'
+pms = Logic.storePMSintoPMS(player)
+print(pms.damageDealt)

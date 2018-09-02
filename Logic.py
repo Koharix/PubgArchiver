@@ -49,3 +49,4 @@ def getPlayerMatchStats(player):
 def storePMSintoPMS(player):
     playerstats = getPlayerMatchStats(player)
     pms = PMS.PMS(playerstats)
+    return pms
