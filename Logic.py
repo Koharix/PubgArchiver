@@ -41,7 +41,7 @@ def getPlayerMatchStats(player):
                 playerStats = x["attributes"]["stats"]
                 print(playerStats)
                 print(json.dumps(playerStats, indent=4, sort_keys=True))
-                print(playerStats["assists"])
+
                 return playerStats
         except KeyError:
             doNothing = 0

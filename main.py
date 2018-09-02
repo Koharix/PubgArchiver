@@ -1,5 +1,5 @@
 import Logic
 
 player = 'Koharix'
-Logic.getPlayerMatchStats(player)
+Logic.storePMSintoPMS(player)
 
