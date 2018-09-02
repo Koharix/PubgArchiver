@@ -17,7 +17,7 @@ MId = 'account.c8335a1816ee452ea757695d0b811259'
 pms = PMS.PMS()
 
 def getPlayerRecentMatchStat(player):
-    (getMatchStats(getRecentMatchId(getPlayerInfo(player))))
+    storePMSintoPMS(getPlayerMatchStats(getMatchStats(getRecentMatchId(getPlayerInfo(player)))))
 
     return pms
 
@@ -39,7 +39,7 @@ def getRecentMatchId(playerInfo):
 
 #returns most recent match information of player
 def getMatchStats(matchId):
-    rurl = 'matches/' + getRecentMatchId(matchId)
+    rurl = 'matches/' + matchId
     return json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
 
 def getPlayerMatchStats(matchStats):
@@ -54,6 +54,5 @@ def getPlayerMatchStats(matchStats):
         except KeyError:
             pass
 
-def storePMSintoPMS(player):
-    pms.storeMatchStats(getPlayerMatchStats(player))
-    return pms
+def storePMSintoPMS(playerStats):
+    return pms.storeMatchStats(playerStats)
