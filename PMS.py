@@ -1,36 +1,6 @@
 
 
 class PMS:
-    # DBNO
-    # assists
-    # boosts
-    # damgeDealt
-    # deatType
-    # headshotKills
-    # heals
-    # killPlace
-    # killPoints
-    # killPointsDelta
-    # killStreaks
-    # kills
-    # lastKillPoints
-    # lastWinPoints
-    # longestKill
-    # mostDamage
-    # name
-    # playerId
-    # revives
-    # rideDistance
-    # roadKills
-    # swimDistance
-    # teamKills
-    # timeSurvived
-    # vehicleDestroys
-    # walkDistance
-    # weaponsAcquired
-    # winPlace
-    # winPoints
-    # winPointsDelta
     def __init__(self, playerStats):
         self.DBNOs = str(playerStats["DBNOs"])
         self.assists = str(playerStats["assists"])
