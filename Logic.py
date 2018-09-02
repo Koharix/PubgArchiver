@@ -15,7 +15,7 @@ def storePlayerId(playerInfo):
 
 def getPlayerInfo(player):
     rurl = 'players?filter[playerNames]=' + player
-    playerInfo = json.load(io.StringIO((requests.get(burl + rurl, headers=headers)).text))
+    playerInfo = json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
     storePlayerId(playerInfo)
     return playerInfo
 
@@ -28,7 +28,7 @@ def getMatchId(player):
 def getMatchStat(player):
     matchId = getMatchId(player)
     rurl = 'matches/' + matchId
-    return json.load(io.StringIO((requests.get(burl + rurl, headers=headers).text)))
+    return json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
 
 def getPlayerMatchStats(player):
     matchStats = getMatchStat(player)["included"]
