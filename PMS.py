@@ -1,7 +1,11 @@
 
 
 class PMS:
-    def __init__(self, playerStats):
+    def __init__(self):
+        asdf = 0
+    def storePlayerId(self, playerId):
+        self.playerId = str(playerId)
+    def storeMatchStats(self, playerStats):
         self.DBNOs = str(playerStats["DBNOs"])
         self.assists = str(playerStats["assists"])
         self.boosts = str(playerStats["boosts"])
