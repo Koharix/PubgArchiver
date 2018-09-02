@@ -3,6 +3,11 @@ import json
 import io
 import PMS
 
+#google sheets
+ClientId = '450833891653-adbtqcc41jeovp2sg75gfqckc1k1s8ij.apps.googleusercontent.com'
+ClientId = ' 450833891653-adbtqcc41jeovp2sg75gfqckc1k1s8ij.apps.googleusercontent.com S'
+CilentSecret = ' r6LDwPRUe0ISwAMDPT2tQimJ '
+
 apiKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJiNjEwODgyMC04ZjZhLTAxMzYtM2JkMi0xN2NlYWJkMDhhYTkiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTM1NzMzNzIyLCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6ImtvaGFyaXgtZGF0YSJ9.dGsB2H8IVJjQTc8x5vL4BTTIdffe9rj3ld3DUUTlvhg '
 headers = {'Authorization':'Bearer '+apiKey, 'Accept':'application/vnd.api+json'}
 burl = 'https://api.pubg.com/shards/pc-na/'
