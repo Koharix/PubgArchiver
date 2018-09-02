@@ -18,7 +18,6 @@ pms = PMS.PMS()
 
 def getPlayerRecentMatchStat(player):
     storePMSintoPMS(getPlayerMatchStats(getMatchStats(getRecentMatchId(getPlayerInfo(player)))))
-
     return pms
 
 def storePlayerId(playerInfo):
@@ -43,16 +42,15 @@ def getMatchStats(matchId):
     return json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
 
 def getPlayerMatchStats(matchStats):
-    print('howdy')
     for matchStats in matchStats["included"]:
         try:
             if matchStats["attributes"]["stats"]["playerId"] == pms.playerId:
                 playerStats = matchStats["attributes"]["stats"] #possible in future to remove playerStats
-                print(json.dumps(matchStats["attributes"]["stats"], indent=4, sort_keys=True))
-                print('')
+                #print(json.dumps(matchStats["attributes"]["stats"], indent=4, sort_keys=True))
+                #print('')
                 return playerStats
         except KeyError:
             pass
 
 def storePMSintoPMS(playerStats):
-    return pms.storeMatchStats(playerStats)
+    pms.storeMatchStats(playerStats)
