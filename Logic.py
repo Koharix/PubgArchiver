@@ -17,15 +17,14 @@ def getPlayerRecentMatchStat(player):
     storePMSintoPMS(getPlayerMatchStats(getMatchStats(getRecentMatchId(getPlayerInfo(player)))))
     return pms
 
-def storePlayerId(jsonPlayerInfo):
-    pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
-    print(pms.playerId)
-
 def getPlayerInfo(player):
     rurl = 'players?filter[playerNames]=' + player
     jsonPlayerInfo = json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
     storePlayerId(jsonPlayerInfo)
     return jsonPlayerInfo
+
+def storePlayerId(jsonPlayerInfo):
+    pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
 
 def getRecentMatchId(jsonPlayerInfo):
     return jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
