@@ -1,5 +1,6 @@
 import Logic
+import json
 
-player = 'mrwafflesman'
-Logic.getMatchStat(player)
-
+player = 'Koharix'
+pms = Logic.getPlayerRecentMatchStat(player)
+print(pms.winPlace)
