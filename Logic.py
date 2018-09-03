@@ -2,7 +2,6 @@ import requests
 import json
 import io
 import PMS
-import datetime
 
 #google sheets
 #ClientId = '450833891653-adbtqcc41jeovp2sg75gfqckc1k1s8ij.apps.googleusercontent.com'
@@ -18,34 +17,34 @@ def getPlayerRecentMatchStat(player):
     storePMSintoPMS(getPlayerMatchStats(getMatchStats(getRecentMatchId(getPlayerInfo(player)))))
     return pms
 
-def storePlayerId(playerInfo):
-    pms.storePlayerId(playerInfo["data"][0]["id"])
+def storePlayerId(jsonPlayerInfo):
+    pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
     print(pms.playerId)
 
 def getPlayerInfo(player):
     rurl = 'players?filter[playerNames]=' + player
-    playerInfo = json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
-    storePlayerId(playerInfo)
-    return playerInfo
+    jsonPlayerInfo = json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
+    storePlayerId(jsonPlayerInfo)
+    return jsonPlayerInfo
 
-def getRecentMatchId(playerInfo):
-    return playerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
+def getRecentMatchId(jsonPlayerInfo):
+    return jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
 
 #returns most recent match information of player
 def getMatchStats(matchId):
     rurl = 'matches/' + matchId
     return json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
 
-def getPlayerMatchStats(matchStats):
-    for matchStats in matchStats["included"]:
+def getPlayerMatchStats(jsonMatchStats):
+    for jsonMatchStats in jsonMatchStats["included"]:
         try:
-            if matchStats["attributes"]["stats"]["playerId"] == pms.playerId:
-                playerStats = matchStats["attributes"]["stats"] #possible in future to remove playerStats
+            if jsonMatchStats["attributes"]["stats"]["playerId"] == pms.playerId:
+                jsonPlayerStats = jsonMatchStats["attributes"]["stats"] #possible in future to remove playerStats
                 #print(json.dumps(matchStats["attributes"]["stats"], indent=4, sort_keys=True))
                 #print('')
-                return playerStats
+                return jsonPlayerStats
         except KeyError:
             pass
 
-def storePMSintoPMS(playerStats):
-    pms.storeMatchStats(playerStats)
+def storePMSintoPMS(jsonPlayerStats):
+    pms.storeMatchStats(jsonPlayerStats)

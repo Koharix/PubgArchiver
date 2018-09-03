@@ -1,10 +1,10 @@
 
-
+#Player Match Stats
 class PMS:
     def __init__(self):
         asdf = 0
     def storePlayerId(self, playerId):
-        self.playerId = str(playerId)
+        self.playerId = playerId
     def storeMatchStats(self, playerStats):
         self.DBNOs = str(playerStats["DBNOs"])
         self.assists = str(playerStats["assists"])
