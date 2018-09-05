@@ -1,6 +1,7 @@
 import Logic
 import json
+import SheetsLogic
 
 player = 'Koharix'
-pms = Logic.getPlayerRecentMatchStat(player)
-print(pms.winPlace)
+pms = SheetsLogic.getPlayerRecentMatchStat(player)
+

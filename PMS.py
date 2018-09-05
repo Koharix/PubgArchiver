@@ -1,3 +1,4 @@
+import json
 
 #Player Match Stats
 class PMS:
@@ -5,6 +6,8 @@ class PMS:
         asdf = 0
     def storePlayerId(self, playerId):
         self.playerId = playerId
+    def storeJsonObj(self, jsonObj):
+        self.jsonPMS = jsonObj
     def storeMatchStats(self, playerStats):
         self.DBNOs = str(playerStats["DBNOs"])
         self.assists = str(playerStats["assists"])
