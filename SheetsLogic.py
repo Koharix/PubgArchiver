@@ -2,10 +2,10 @@ from oauth2client.client import flow_from_clientsecrets
 from pprint import pprint
 from googleapiclient import discovery
 from oauth2client import file, tools
-import Logic
+import PubgLogic
 
 
-pms = Logic.getPlayerRecentMatchStat('Koharix')
+pms = PubgLogic.getPlayerRecentMatchStat('Koharix')
 flow = flow_from_clientsecrets('client_secret_current.json', scope='https://www.googleapis.com/auth/spreadsheets')
 store = file.Storage('token.json')
 creds = tools.run_flow(flow, store)
