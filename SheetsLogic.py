@@ -54,19 +54,22 @@ spreadsheet_id = '1rVvdlGiZKrYhBFq4oAFeVHTGwEZ322eQ2UNXvUL2NTw'  # TODO: Update 
 
 # The A1 notation of a range to search for a logical table of data.
 # Values will be appended after the last row of the table.
-range_ = 'Sheet1!A2:Z'  # TODO: Update placeholder value.
+range_ = 'Sheet1!B2:Z'  # TODO: Update placeholder value.
 
 # How the input data should be interpreted.
 value_input_option = 1  # TODO: Update placeholder value.
 
 # How the input data should be inserted.
 insert_data_option = '1'  # TODO: Update placeholder value.
-
 value_range_body = {
-    # TODO: Add desired entries to the request body.
+    "range": range_,
+    #"majorDimension": enum(Dimension),
+    "values": [
+        pms.array
+    ]
 }
-value_range_body = pms
-request = service.spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption=valueInputOption.RAW, insertDataOption=insert_data_option, body=value_range_body)
+#value_range_body = pms.strPms
+request = service.spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption="RAW", insertDataOption="INSERT_ROWS", body=value_range_body)
 response = request.execute()
 
 # TODO: Change code below to process the `response` dict:

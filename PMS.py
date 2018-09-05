@@ -6,36 +6,39 @@ class PMS:
         asdf = 0
     def storePlayerId(self, playerId):
         self.playerId = playerId
+
+    def storeStrObj(self, strPms):
+        self.strPms = strPms
     def storeJsonObj(self, jsonObj):
         self.jsonPMS = jsonObj
     def storeMatchStats(self, playerStats):
-        self.DBNOs = str(playerStats["DBNOs"])
-        self.assists = str(playerStats["assists"])
-        self.boosts = str(playerStats["boosts"])
-        self.damageDealt = str(playerStats["damageDealt"])
-        self.deathType = playerStats["deathType"]
-        self.headshotKills = str(playerStats["headshotKills"])
-        self.heals = str(playerStats["heals"])
-        self.killPlace = str(playerStats["killPlace"])
-        self.killPoints = str(playerStats["killPoints"])
-        self.killPointsDelta = str(playerStats["killPointsDelta"])
-        self.killStreaks = str(playerStats["killStreaks"])
-        self.kills = str(playerStats["kills"])
-        self.lastKillPoints = str(playerStats["lastKillPoints"])
-        self.lastWinPoints = str(playerStats["lastWinPoints"])
-        self.longestKill = str(playerStats["longestKill"])
-        self.mostDamage = str(playerStats["mostDamage"])
-        self.name = playerStats["name"]
-        self.playerId = playerStats["playerId"]
-        self.revives = str(playerStats["revives"])
-        self.rideDistance = str(playerStats["rideDistance"])
-        self.roadKills = str(playerStats["roadKills"])
-        self.swimDistance = str(playerStats["swimDistance"])
-        self.teamKills = str(playerStats["teamKills"])
-        self.timeSurvived = str(playerStats["timeSurvived"])
-        self.vehicleDestroys = str(playerStats["vehicleDestroys"])
-        self.walkDistance = str(playerStats["walkDistance"])
-        self.weaponsAcquired = str(playerStats["weaponsAcquired"])
-        self.winPlace = str(playerStats["winPlace"])
-        self.winPoints = str(playerStats["winPoints"])
-        self.winPointsDelta = str(playerStats["winPointsDelta"])
+        self.array = [str(playerStats["DBNOs"]),
+        str(playerStats["assists"]),
+        str(playerStats["boosts"]),
+        str(playerStats["damageDealt"]),
+        playerStats["deathType"],
+        str(playerStats["headshotKills"]),
+        str(playerStats["heals"]),
+        str(playerStats["killPlace"]),
+        str(playerStats["killPoints"]),
+        str(playerStats["killPointsDelta"]),
+        str(playerStats["killStreaks"]),
+        str(playerStats["kills"]),
+        str(playerStats["lastKillPoints"]),
+        str(playerStats["lastWinPoints"]),
+        str(playerStats["longestKill"]),
+        str(playerStats["mostDamage"]),
+        playerStats["name"],
+        playerStats["playerId"],
+        str(playerStats["revives"]),
+        str(playerStats["rideDistance"]),
+        str(playerStats["roadKills"]),
+        str(playerStats["swimDistance"]),
+        str(playerStats["teamKills"]),
+        str(playerStats["timeSurvived"]),
+        str(playerStats["vehicleDestroys"]),
+        str(playerStats["walkDistance"]),
+        str(playerStats["weaponsAcquired"]),
+        str(playerStats["winPlace"]),
+        str(playerStats["winPoints"]),
+        str(playerStats["winPointsDelta"])]
