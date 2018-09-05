@@ -3,5 +3,5 @@ import json
 import SheetsLogic
 
 player = 'Koharix'
-pms = SheetsLogic.getPlayerRecentMatchStat(player)
-
+pms = PubgLogic.getPlayerRecentMatchStat('Koharix')
+SheetsLogic.func(pms)
