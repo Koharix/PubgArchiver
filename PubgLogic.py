@@ -32,6 +32,7 @@ def getMatchStats(matchId):
 def getPlayerMatchStats(jsonMatchStats):
     for jsonMatchStats in jsonMatchStats["included"]:
         try:
+
             if jsonMatchStats["attributes"]["stats"]["playerId"] == pms.playerId:
                 jsonPlayerStats = jsonMatchStats["attributes"]["stats"] #possible in future to remove playerStats
                 #print(json.dumps(jsonPlayerStats, indent=4, sort_keys=True))
