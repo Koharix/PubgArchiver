@@ -40,13 +40,8 @@ def getPlayerMatchStats(jsonMatchStats):
             if jsonMatchStats["attributes"]["stats"]["playerId"] == pms.playerId:
                 jsonPlayerStats = jsonMatchStats["attributes"]["stats"] #possible in future to remove playerStats
                 #print(json.dumps(jsonPlayerStats, indent=4, sort_keys=True))
-                print('str below')
-                strPlayerStats = str(jsonPlayerStats)
-                pms.storeStrObj(strPlayerStats)
-                print(strPlayerStats)
-                print('str above')
+                pms.storeStrObj(str(jsonPlayerStats))
                 pms.storeJsonObj(jsonPlayerStats)
-                #print('')
                 return jsonPlayerStats
         except KeyError:
             pass
