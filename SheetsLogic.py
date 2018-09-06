@@ -19,10 +19,23 @@ def getMostRecentMatchId():
     numRows = result.get('values') if result.get('values') is not None else 0
     print(numRows)
 
-def storeRecentMatchId():
-    pass
+def setRecentMatchId(pms):
+    range_ = 'Sheet1!A1:A1'
+    value_input_option = "RAW"
+    insert_data_option = "OVERWRITE"
+    value_range_body = {
+        "range": range_,
+        "values": [
+            [pms.matchId]
+        ]
+    }
+    request = getService().spreadsheets().values().update(spreadsheetId=spreadsheet_id, range=range_,
+                                                          valueInputOption=value_input_option, body=value_range_body)
+    response = request.execute()
+    pprint(response)
 
 def appendPms(pms):
+    setRecentMatchId(pms)
     range_ = 'Sheet1!B2:Z'
     value_input_option = "RAW"
     insert_data_option = "INSERT_ROWS"

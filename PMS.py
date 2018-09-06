@@ -6,7 +6,7 @@ class PMS:
         pass
     def storePlayerId(self, playerId):
         self.playerId = playerId
-    def storeMatchId(self, matchId):
+    def setMatchId(self, matchId):
         self.matchId = matchId
     def storeStrObj(self, strPms):
         self.strPms = strPms

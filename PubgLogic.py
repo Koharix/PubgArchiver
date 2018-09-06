@@ -23,11 +23,11 @@ def storePlayerId(jsonPlayerInfo):
 
 def getRecentMatchId(jsonPlayerInfo):
     matchId = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
-    storeMatchId(matchId)
+    setMatchId(matchId)
     return matchId
 
-def storeMatchId(matchId):
-    pms.storeMatchId(matchId)
+def setMatchId(matchId):
+    pms.setMatchId(matchId)
 
 #returns most recent match information of player
 def getMatchStats(matchId):
@@ -37,7 +37,6 @@ def getMatchStats(matchId):
 def getPlayerMatchStats(jsonMatchStats):
     for jsonMatchStats in jsonMatchStats["included"]:
         try:
-
             if jsonMatchStats["attributes"]["stats"]["playerId"] == pms.playerId:
                 jsonPlayerStats = jsonMatchStats["attributes"]["stats"] #possible in future to remove playerStats
                 #print(json.dumps(jsonPlayerStats, indent=4, sort_keys=True))
