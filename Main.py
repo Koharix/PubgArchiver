@@ -1,7 +1,8 @@
 import PubgLogic
-import json
 import SheetsLogic
 
 player = 'Koharix'
-pms = PubgLogic.getPlayerRecentMatchStat('Koharix')
-SheetsLogic.storePms(pms)
+SheetsLogic.getMostRecentMatchId()
+# pms = PubgLogic.getPlayerRecentMatchStat('Koharix')
+# SheetsLogic.appendPms(pms)
+# print(SheetsLogic.getMostRecentMatchId())

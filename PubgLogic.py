@@ -22,7 +22,12 @@ def storePlayerId(jsonPlayerInfo):
     pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
 
 def getRecentMatchId(jsonPlayerInfo):
-    return jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
+    matchId = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
+    storeMatchId(matchId)
+    return matchId
+
+def storeMatchId(matchId):
+    pms.storeMatchId(matchId)
 
 #returns most recent match information of player
 def getMatchStats(matchId):
@@ -44,5 +49,3 @@ def getPlayerMatchStats(jsonMatchStats):
 
 def storePMSintoPMS(jsonPlayerStats):
     pms.storeMatchStats(jsonPlayerStats)
-
-getPlayerRecentMatchStat('Koharix')

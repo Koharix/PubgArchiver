@@ -3,10 +3,11 @@ import json
 #Player Match Stats
 class PMS:
     def __init__(self):
-        asdf = 0
+        pass
     def storePlayerId(self, playerId):
         self.playerId = playerId
-
+    def storeMatchId(self, matchId):
+        self.matchId = matchId
     def storeStrObj(self, strPms):
         self.strPms = strPms
     def storeJsonObj(self, jsonObj):
@@ -41,4 +42,5 @@ class PMS:
         str(playerStats["weaponsAcquired"]),
         str(playerStats["winPlace"]),
         str(playerStats["winPoints"]),
-        str(playerStats["winPointsDelta"])]
+        str(playerStats["winPointsDelta"]),
+        self.matchId]
