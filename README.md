@@ -1,5 +1,5 @@
 # PubgArchiver
-Hello and welcome to the PubgArchiver, provided by Koharix Logic!
+Hello and welcome to the PubgArchiver, developed by Koharix Logic!
 
 (If you are here it is probably because you are looking for something else)
 
