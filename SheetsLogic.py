@@ -17,7 +17,7 @@ def getMostRecentMatchId():
     range_name = 'Sheet1!A1:A1'
     result = getService().spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
     numRows = result.get('values') if result.get('values') is not None else 0
-    print(numRows)
+    return numRows[0][0]
 
 def setRecentMatchId(pms):
     range_ = 'Sheet1!A1:A1'

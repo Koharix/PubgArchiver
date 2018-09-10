@@ -16,6 +16,7 @@ def getPlayerInfo(player):
     rurl = 'players?filter[playerNames]=' + player
     jsonPlayerInfo = json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
     storePlayerId(jsonPlayerInfo)
+    storePlayerInfo(jsonPlayerInfo)
     return jsonPlayerInfo
 
 def getMatchHistory(jsonPlayerInfo):
@@ -28,13 +29,13 @@ def getRecentMatchId(jsonPlayerInfo):
     setMatchId(matchId)
     return matchId
 
-def getUnstoredMatchIds(recentStoredMatchId):
+def getUnstoredMatchIds(storedRecentMatchId):
     array = []
-    for jsonMatchHistory in pms.jsonMatchHistory:
-        if recentStoredMatchId == jsonMatchHistory["id"]:
+    for jsonPlayerInfo in pms.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
+        if storedRecentMatchId == jsonPlayerInfo["id"]:
             return array
         else:
-            array.append(recentStoredMatchId)
+            array.append(jsonPlayerInfo)
 
 def setMatchId(matchId):
     pms.setMatchId(matchId)
@@ -57,6 +58,9 @@ def getPlayerMatchStats(jsonMatchStats):
 
 def storePlayerId(jsonPlayerInfo):
     pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
+
+def storePlayerInfo(jsonPlayerInfo):
+    pms.setPlayerInfo(jsonPlayerInfo)
 
 def storeMatchHistory(jsonMatchHistory):
     pms.storeMatchHistory(jsonMatchHistory)

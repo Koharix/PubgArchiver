@@ -6,6 +6,8 @@ class PMS:
         pass
     def storePlayerId(self, playerId):
         self.playerId = playerId
+    def setPlayerInfo(self, jsonPlayerInfo):
+        self.jsonPlayerInfo = jsonPlayerInfo
     def storeMatchHistory(self, jsonMatchHistory):
         self.jsonMatchHistory = jsonMatchHistory
     def setMatchId(self, matchId):
