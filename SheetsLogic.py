@@ -22,7 +22,6 @@ def getMostRecentMatchId():
 def setRecentMatchId(pms):
     range_ = 'Sheet1!A1:A1'
     value_input_option = "RAW"
-    insert_data_option = "OVERWRITE"
     value_range_body = {
         "range": range_,
         "values": [

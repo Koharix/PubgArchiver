@@ -18,13 +18,23 @@ def getPlayerInfo(player):
     storePlayerId(jsonPlayerInfo)
     return jsonPlayerInfo
 
-def storePlayerId(jsonPlayerInfo):
-    pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
+def getMatchHistory(jsonPlayerInfo):
+    jsonMatchHistory = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]
+    storeMatchHistory(jsonMatchHistory)
+    return jsonMatchHistory
 
 def getRecentMatchId(jsonPlayerInfo):
     matchId = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
     setMatchId(matchId)
     return matchId
+
+def getUnstoredMatchIds(recentStoredMatchId):
+    array = []
+    for jsonMatchHistory in pms.jsonMatchHistory:
+        if recentStoredMatchId == jsonMatchHistory["id"]:
+            return array
+        else:
+            array.append(recentStoredMatchId)
 
 def setMatchId(matchId):
     pms.setMatchId(matchId)
@@ -38,13 +48,21 @@ def getPlayerMatchStats(jsonMatchStats):
     for jsonMatchStats in jsonMatchStats["included"]:
         try:
             if jsonMatchStats["attributes"]["stats"]["playerId"] == pms.playerId:
-                jsonPlayerStats = jsonMatchStats["attributes"]["stats"] #possible in future to remove playerStats
-                #print(json.dumps(jsonPlayerStats, indent=4, sort_keys=True))
+                jsonPlayerStats = jsonMatchStats["attributes"]["stats"]
                 pms.storeStrObj(str(jsonPlayerStats))
                 pms.storeJsonObj(jsonPlayerStats)
                 return jsonPlayerStats
         except KeyError:
             pass
 
+def storePlayerId(jsonPlayerInfo):
+    pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
+
+def storeMatchHistory(jsonMatchHistory):
+    pms.storeMatchHistory(jsonMatchHistory)
+
 def storePMSintoPMS(jsonPlayerStats):
     pms.storeMatchStats(jsonPlayerStats)
+
+def printJson(jsonObj):
+    print(json.dumps(jsonObj, indent=4, sort_keys=True))
