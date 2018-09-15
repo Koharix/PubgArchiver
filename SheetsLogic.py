@@ -13,7 +13,7 @@ def authenticate():
 def getService():
     return discovery.build('sheets', 'v4', credentials=authenticate())
 
-def getMostRecentMatchId():
+def getMostMatchId():
     range_name = 'Sheet1!A1:A1'
     result = getService().spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
     numRows = result.get('values') if result.get('values') is not None else 0
@@ -47,4 +47,5 @@ def appendPms(pms):
     request = getService().spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
     response = request.execute()
     pprint(response)
+    setRecentMatchId(pms)
 

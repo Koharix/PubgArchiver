@@ -70,3 +70,6 @@ def storePMSintoPMS(jsonPlayerStats):
 
 def printJson(jsonObj):
     print(json.dumps(jsonObj, indent=4, sort_keys=True))
+
+def getPms():
+    return pms
