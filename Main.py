@@ -2,7 +2,7 @@ import PubgLogic
 import SheetsLogic
 import CombinedLogic
 
-# player = 'Koharix'
+player = 'Koharix'
 # #pms = PubgLogic.getPlayerRecentMatchStat(player)
 # #SheetsLogic.setRecentMatchId(pms)
 # # pms = PubgLogic.getPlayerRecentMatchStat('Koharix')
@@ -12,4 +12,4 @@ import CombinedLogic
 # recentStoredMatchId = SheetsLogic.getRecentMatchId()
 # array = PubgLogic.getUnstoredMatchIds(recentStoredMatchId)
 # print(array)
-CombinedLogic.storeRecentMatchs()
+CombinedLogic.storeRecentMatchs(player)

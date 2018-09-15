@@ -31,11 +31,12 @@ def getRecentMatchId(jsonPlayerInfo):
 
 def getUnstoredMatchIds(storedRecentMatchId):
     array = []
+    printJson(pms.jsonPlayerInfo)
     for jsonPlayerInfo in pms.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
         if storedRecentMatchId == jsonPlayerInfo["id"]:
             return array
         else:
-            array.append(jsonPlayerInfo)
+            array.append(jsonPlayerInfo["id"])
 
 def setMatchId(matchId):
     pms.setMatchId(matchId)
