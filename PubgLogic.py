@@ -37,9 +37,6 @@ def getUnstoredMatchIds(storedRecentMatchId):
         else:
             array.append(jsonPlayerInfo["id"])
 
-def setMatchId(matchId):
-    pms.setMatchId(matchId)
-
 #returns most recent match information of player
 def getMatchStats(matchId):
     rurl = 'matches/' + matchId
@@ -56,6 +53,12 @@ def getPlayerMatchStats(jsonMatchStats):
         except KeyError:
             pass
 
+def getPms():
+    return pms
+
+def setMatchId(matchId):
+    pms.setMatchId(matchId)
+
 def storePlayerId(jsonPlayerInfo):
     pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
 
@@ -71,5 +74,4 @@ def storePMSintoPMS(jsonPlayerStats):
 def printJson(jsonObj):
     print(json.dumps(jsonObj, indent=4, sort_keys=True))
 
-def getPms():
-    return pms
+
