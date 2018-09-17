@@ -1,2 +1,7 @@
 .idea/
 __pycache__/
+pubgApiKey.txt
+client_id.json
+client_secret_current.json
+credentials.json
+token.json

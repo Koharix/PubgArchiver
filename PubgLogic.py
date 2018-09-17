@@ -3,7 +3,10 @@ import json
 import io
 import PMS
 
-apiKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJiNjEwODgyMC04ZjZhLTAxMzYtM2JkMi0xN2NlYWJkMDhhYTkiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTM1NzMzNzIyLCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6ImtvaGFyaXgtZGF0YSJ9.dGsB2H8IVJjQTc8x5vL4BTTIdffe9rj3ld3DUUTlvhg '
+
+with open('pubgApiKey.txt', 'r') as myfile:
+    apiKey=myfile.read()
+
 headers = {'Authorization':'Bearer ' + apiKey, 'Accept':'application/vnd.api+json'}
 burl = 'https://api.pubg.com/shards/pc-na/'
 pms = PMS.PMS()
