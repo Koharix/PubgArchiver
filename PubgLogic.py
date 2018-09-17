@@ -4,10 +4,10 @@ import io
 import PMS
 
 
-with open('pubgApiKey.txt', 'r') as myfile:
-    apiKey=myfile.read()
+with open('pubgApiKey.txt', 'r') as pubgApiKeyFile:
+    pubgApiKey = pubgApiKeyFile.read()
 
-headers = {'Authorization':'Bearer ' + apiKey, 'Accept':'application/vnd.api+json'}
+headers = {'Authorization':'Bearer ' + pubgApiKey, 'Accept':'application/vnd.api+json'}
 burl = 'https://api.pubg.com/shards/pc-na/'
 pms = PMS.PMS()
 
@@ -76,5 +76,4 @@ def storePMSintoPMS(jsonPlayerStats):
 
 def printJson(jsonObj):
     print(json.dumps(jsonObj, indent=4, sort_keys=True))
-
 
