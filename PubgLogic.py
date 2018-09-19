@@ -3,77 +3,78 @@ import json
 import io
 import PMS
 
+class PubgLogic:
+    def __init__(self):
+        with open('pubgApiKey.txt', 'r') as pubgApiKeyFile:
+            pubgApiKey = pubgApiKeyFile.read()
 
-with open('pubgApiKey.txt', 'r') as pubgApiKeyFile:
-    pubgApiKey = pubgApiKeyFile.read()
+        self.headers = {'Authorization':'Bearer ' + pubgApiKey, 'Accept':'application/vnd.api+json'}
+        self.burl = 'https://api.pubg.com/shards/pc-na/'
+        self.pms = PMS.PMS()
 
-headers = {'Authorization':'Bearer ' + pubgApiKey, 'Accept':'application/vnd.api+json'}
-burl = 'https://api.pubg.com/shards/pc-na/'
-pms = PMS.PMS()
+    def getPlayerRecentMatchStat(self, player):
+        self.storePMSintoPMS(self.getPlayerMatchStats(self.getMatchStats(self.getRecentMatchId(self.getPlayerInfo(player)))))
+        return self.pms
 
-def getPlayerRecentMatchStat(player):
-    storePMSintoPMS(getPlayerMatchStats(getMatchStats(getRecentMatchId(getPlayerInfo(player)))))
-    return pms
+    def getPlayerInfo(self, player):
+        rurl = 'players?filter[playerNames]=' + player
+        jsonPlayerInfo = json.load(io.StringIO(requests.get(self.burl + rurl, headers=self.headers).text))
+        self.storePlayerId(jsonPlayerInfo)
+        self.storePlayerInfo(jsonPlayerInfo)
+        return jsonPlayerInfo
 
-def getPlayerInfo(player):
-    rurl = 'players?filter[playerNames]=' + player
-    jsonPlayerInfo = json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
-    storePlayerId(jsonPlayerInfo)
-    storePlayerInfo(jsonPlayerInfo)
-    return jsonPlayerInfo
+    def getMatchHistory(self, jsonPlayerInfo):
+        jsonMatchHistory = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]
+        self.storeMatchHistory(jsonMatchHistory)
+        return jsonMatchHistory
 
-def getMatchHistory(jsonPlayerInfo):
-    jsonMatchHistory = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]
-    storeMatchHistory(jsonMatchHistory)
-    return jsonMatchHistory
+    def getRecentMatchId(self, jsonPlayerInfo):
+        matchId = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
+        setMatchId(matchId)
+        return matchId
 
-def getRecentMatchId(jsonPlayerInfo):
-    matchId = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
-    setMatchId(matchId)
-    return matchId
+    def getUnstoredMatchIds(self, storedRecentMatchId):
+        array = []
+        for jsonPlayerInfo in self.pms.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
+            if storedRecentMatchId == jsonPlayerInfo["id"]:
+                return array
+            else:
+                array.append(jsonPlayerInfo["id"])
 
-def getUnstoredMatchIds(storedRecentMatchId):
-    array = []
-    for jsonPlayerInfo in pms.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
-        if storedRecentMatchId == jsonPlayerInfo["id"]:
-            return array
-        else:
-            array.append(jsonPlayerInfo["id"])
+    #returns most recent match information of player
+    def getMatchStats(self, matchId):
+        rurl = 'matches/' + matchId
+        return json.load(io.StringIO(requests.get(self.burl + rurl, headers=self.headers).text))
 
-#returns most recent match information of player
-def getMatchStats(matchId):
-    rurl = 'matches/' + matchId
-    return json.load(io.StringIO(requests.get(burl + rurl, headers=headers).text))
+    def getPlayerMatchStats(self, jsonMatchStats):
+        for jsonMatchStats in jsonMatchStats["included"]:
+            try:
+                if jsonMatchStats["attributes"]["stats"]["playerId"] == self.pms.playerId:
+                    jsonPlayerStats = jsonMatchStats["attributes"]["stats"]
+                    pms.storeStrObj(str(jsonPlayerStats))
+                    pms.storeJsonObj(jsonPlayerStats)
+                    return jsonPlayerStats
+            except KeyError:
+                pass
 
-def getPlayerMatchStats(jsonMatchStats):
-    for jsonMatchStats in jsonMatchStats["included"]:
-        try:
-            if jsonMatchStats["attributes"]["stats"]["playerId"] == pms.playerId:
-                jsonPlayerStats = jsonMatchStats["attributes"]["stats"]
-                pms.storeStrObj(str(jsonPlayerStats))
-                pms.storeJsonObj(jsonPlayerStats)
-                return jsonPlayerStats
-        except KeyError:
-            pass
+    def getPms(self):
+        return self.pms
 
-def getPms():
-    return pms
+    def setMatchId(self, matchId):
+        self.pms.setMatchId(matchId)
 
-def setMatchId(matchId):
-    pms.setMatchId(matchId)
+    def storePlayerId(self, jsonPlayerInfo):
+        self.pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
 
-def storePlayerId(jsonPlayerInfo):
-    pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
+    def storePlayerInfo(self, jsonPlayerInfo):
+        self.pms.setPlayerInfo(jsonPlayerInfo)
 
-def storePlayerInfo(jsonPlayerInfo):
-    pms.setPlayerInfo(jsonPlayerInfo)
+    def storeMatchHistory(self, jsonMatchHistory):
+        self.pms.storeMatchHistory(self, jsonMatchHistory)
 
-def storeMatchHistory(jsonMatchHistory):
-    pms.storeMatchHistory(jsonMatchHistory)
+    def storePMSintoPMS(self, jsonPlayerStats):
+        self.pms.storeMatchStats(jsonPlayerStats)
 
-def storePMSintoPMS(jsonPlayerStats):
-    pms.storeMatchStats(jsonPlayerStats)
-
-def printJson(jsonObj):
-    print(json.dumps(jsonObj, indent=4, sort_keys=True))
+    def printJson(self, jsonObj):
+        print(json.dumps(jsonObj, indent=4, sort_keys=True))
 

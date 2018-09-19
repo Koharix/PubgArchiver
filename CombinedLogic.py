@@ -1,6 +1,8 @@
 import PubgLogic
 import SheetsLogic
+import userInput
 
+ui = userInput.userInput(userInput.json)
 def storeRecentMatchs(player):
     PubgLogic.getPlayerInfo(player)
     storedRecentMatchId = SheetsLogic.getRecentMatchId()
@@ -15,3 +17,5 @@ def storeMatch(matchId):
     PubgLogic.storePMSintoPMS(jsonMatchStats)
     pms = PubgLogic.getPms()
     SheetsLogic.appendPms(pms)
+
+
