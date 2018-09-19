@@ -5,7 +5,7 @@ from oauth2client import file, tools
 
 class SheetsLogic:
     def __init__(self, god):
-        spreadsheet_id = god.ui.spreadsheetId
+        self.spreadsheet_id = god.ui.spreadsheetId
 
     def authenticate(self):
         flow = flow_from_clientsecrets('client_secret_current.json', scope='https://www.googleapis.com/auth/spreadsheets')

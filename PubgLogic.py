@@ -4,11 +4,9 @@ import io
 import PMS
 
 class PubgLogic:
-    def __init__(self):
-        with open('pubgApiKey.txt', 'r') as pubgApiKeyFile:
-            pubgApiKey = pubgApiKeyFile.read()
-
-        self.headers = {'Authorization':'Bearer ' + pubgApiKey, 'Accept':'application/vnd.api+json'}
+    def __init__(self, god):
+        self.pubgApiKey = god.ui.pubgApiKey
+        self.headers = {'Authorization':'Bearer ' + self.pubgApiKey, 'Accept':'application/vnd.api+json'}
         self.burl = 'https://api.pubg.com/shards/pc-na/'
         self.pms = PMS.PMS()
 
@@ -30,7 +28,7 @@ class PubgLogic:
 
     def getRecentMatchId(self, jsonPlayerInfo):
         matchId = jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]
-        setMatchId(matchId)
+        self.setMatchId(matchId)
         return matchId
 
     def getUnstoredMatchIds(self, storedRecentMatchId):
@@ -51,8 +49,8 @@ class PubgLogic:
             try:
                 if jsonMatchStats["attributes"]["stats"]["playerId"] == self.pms.playerId:
                     jsonPlayerStats = jsonMatchStats["attributes"]["stats"]
-                    pms.storeStrObj(str(jsonPlayerStats))
-                    pms.storeJsonObj(jsonPlayerStats)
+                    self.pms.storeStrObj(str(jsonPlayerStats))
+                    self.pms.storeJsonObj(jsonPlayerStats)
                     return jsonPlayerStats
             except KeyError:
                 pass
