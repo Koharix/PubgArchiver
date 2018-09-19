@@ -2,20 +2,24 @@ import PubgLogic
 import SheetsLogic
 import userInput
 
-ui = userInput.userInput(userInput.json)
-def storeRecentMatchs(player):
-    PubgLogic.getPlayerInfo(player)
-    storedRecentMatchId = SheetsLogic.getRecentMatchId()
-    matchIds = PubgLogic.getUnstoredMatchIds(storedRecentMatchId)
-    for matchId in matchIds:
-        storeMatch(str(matchId))
+class CombinedLogic:
+    def __init__(self, god):
+        self.god = god
 
-def storeMatch(matchId):
-    PubgLogic.setMatchId(matchId)
-    jsonMatchStats = PubgLogic.getMatchStats(matchId)
-    jsonMatchStats = PubgLogic.getPlayerMatchStats(jsonMatchStats)
-    PubgLogic.storePMSintoPMS(jsonMatchStats)
-    pms = PubgLogic.getPms()
-    SheetsLogic.appendPms(pms)
+
+    def storeRecentMatchs(self, player):
+        self.god.pl.getPlayerInfo(player)
+        storedRecentMatchId = self.god.sl.getRecentMatchId()
+        matchIds = self.god.pl.getUnstoredMatchIds(storedRecentMatchId)
+        for matchId in matchIds:
+            self.storeMatch(str(matchId))
+
+    def storeMatch(self, matchId):
+        self.god.pl.setMatchId(matchId)
+        jsonMatchStats = self.god.pl.getMatchStats(matchId)
+        jsonMatchStats = self.god.pl.getPlayerMatchStats(jsonMatchStats)
+        self.god.pl.storePMSintoPMS(jsonMatchStats)
+        pms = self.god.pl.getPms()
+        self.god.sl.appendPms(pms)
 
 

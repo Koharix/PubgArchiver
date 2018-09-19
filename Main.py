@@ -1,6 +1,6 @@
 import God
 
-god = God()
+god = God.God()
 player = 'Koharix'
 # #pms = PubgLogic.getPlayerRecentMatchStat(player)
 # #SheetsLogic.setRecentMatchId(pms)
