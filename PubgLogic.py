@@ -1,13 +1,15 @@
 import requests
 import json
 import io
-import PMS
 
 class PubgLogic:
     def __init__(self, god):
-        self.headers = {'Authorization':'Bearer ' + god.ui.pubgApiKey, 'Accept':'application/vnd.api+json'}
-        self.burl = 'https://api.pubg.com/shards/pc-na/'
         self.god = god
+        self.headers = {'Authorization':'Bearer ' + god.ui.pubgApiKey, 'Accept':'application/vnd.api+json'}
+        #case statement for region
+        if(self.god.ui.region == 'na'):
+            self.burl = 'https://api.pubg.com/shards/pc-na/'
+
 
     def getPlayerRecentMatchStat(self, player):
         self.storePMSintoPMS(self.getPlayerMatchStats(self.getMatchStats(self.getRecentMatchId(self.getPlayerInfo(player)))))

@@ -11,4 +11,4 @@ player = 'Koharix'
 # recentStoredMatchId = SheetsLogic.getRecentMatchId()
 # array = PubgLogic.getUnstoredMatchIds(recentStoredMatchId)
 # print(array)
-god.cl.storeRecentMatchs(player)
+god.cl.storeRecentMatchs(god.ui.region)
