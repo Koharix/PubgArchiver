@@ -5,14 +5,12 @@ import PMS
 
 class PubgLogic:
     def __init__(self, god):
-        self.pubgApiKey = god.ui.pubgApiKey
-        self.headers = {'Authorization':'Bearer ' + self.pubgApiKey, 'Accept':'application/vnd.api+json'}
+        self.headers = {'Authorization':'Bearer ' + god.ui.pubgApiKey, 'Accept':'application/vnd.api+json'}
         self.burl = 'https://api.pubg.com/shards/pc-na/'
-        self.pms = PMS.PMS()
+        self.god = god
 
     def getPlayerRecentMatchStat(self, player):
         self.storePMSintoPMS(self.getPlayerMatchStats(self.getMatchStats(self.getRecentMatchId(self.getPlayerInfo(player)))))
-        return self.pms
 
     def getPlayerInfo(self, player):
         rurl = 'players?filter[playerNames]=' + player
@@ -33,7 +31,7 @@ class PubgLogic:
 
     def getUnstoredMatchIds(self, storedRecentMatchId):
         array = []
-        for jsonPlayerInfo in self.pms.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
+        for jsonPlayerInfo in self.god.pms.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
             if storedRecentMatchId == jsonPlayerInfo["id"]:
                 return array
             else:
@@ -49,29 +47,26 @@ class PubgLogic:
             try:
                 if jsonMatchStats["attributes"]["stats"]["playerId"] == self.pms.playerId:
                     jsonPlayerStats = jsonMatchStats["attributes"]["stats"]
-                    self.pms.storeStrObj(str(jsonPlayerStats))
-                    self.pms.storeJsonObj(jsonPlayerStats)
+                    self.god.pms.storeStrObj(str(jsonPlayerStats))
+                    self.god.pms.storeJsonObj(jsonPlayerStats)
                     return jsonPlayerStats
             except KeyError:
                 pass
 
-    def getPms(self):
-        return self.pms
-
     def setMatchId(self, matchId):
-        self.pms.setMatchId(matchId)
+        self.god.pms.setMatchId(matchId)
 
     def storePlayerId(self, jsonPlayerInfo):
-        self.pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
+        self.god.pms.storePlayerId(jsonPlayerInfo["data"][0]["id"])
 
     def storePlayerInfo(self, jsonPlayerInfo):
-        self.pms.setPlayerInfo(jsonPlayerInfo)
+        self.god.pms.setPlayerInfo(jsonPlayerInfo)
 
     def storeMatchHistory(self, jsonMatchHistory):
-        self.pms.storeMatchHistory(self, jsonMatchHistory)
+        self.god.pms.storeMatchHistory(self, jsonMatchHistory)
 
     def storePMSintoPMS(self, jsonPlayerStats):
-        self.pms.storeMatchStats(jsonPlayerStats)
+        self.god.pms.storeMatchStats(jsonPlayerStats)
 
     def printJson(self, jsonObj):
         print(json.dumps(jsonObj, indent=4, sort_keys=True))

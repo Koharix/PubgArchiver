@@ -8,6 +8,8 @@ class userInput:
             userInput = json.load(userInputFile)
             self.pubgApiKey = userInput["pubgApiKey"]
             self.spreadsheetId = userInput["spreadsheetId"]
+            self.player1 = userInput["player1"]
+            self.player2 = userInput["player2"]
     # def pubgApiKey(self):
     #     return self.pubgApiKey
 
