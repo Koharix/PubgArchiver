@@ -1,2 +1,5 @@
 .idea/
 __pycache__/
+client_secret_current.json
+token.json
+userInput.json
