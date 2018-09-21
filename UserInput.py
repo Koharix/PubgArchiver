@@ -1,6 +1,6 @@
 import json
 
-class userInput:
+class UserInput:
     def __init__(self):
         pass
 

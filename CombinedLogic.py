@@ -1,6 +1,4 @@
-import PubgLogic
-import SheetsLogic
-import userInput
+
 
 class CombinedLogic:
     def __init__(self, god):
