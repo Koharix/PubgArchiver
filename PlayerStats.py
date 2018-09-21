@@ -1,7 +1,7 @@
 import json
 
 #Player Match Stats
-class PMS:
+class PlayerStats:
     def __init__(self):
         pass
     def storePlayerId(self, playerId):

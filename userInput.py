@@ -3,7 +3,12 @@ import json
 class userInput:
     def __init__(self):
         pass
-    def __init__(self, relFilePath):
+
+    def __init__(self, god):
+        self.god = god
+
+    def __init__(self, god, relFilePath):
+        self.god = god
         with open('userInput.json', 'r') as userInputFile:
             userInput = json.load(userInputFile)
             self.pubgApiKey = userInput["pubgApiKey"]
