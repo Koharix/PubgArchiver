@@ -2,7 +2,7 @@ import userInput
 import PubgLogic
 import SheetsLogic
 import CombinedLogic
-import PMS
+import PlayerStats
 
 class God:
     def __init__(self):
@@ -10,3 +10,4 @@ class God:
         self.pl = PubgLogic.PubgLogic(self)
         self.sl = SheetsLogic.SheetsLogic(self)
         self.cl = CombinedLogic.CombinedLogic(self)
+        self.ps = PlayerStats.PlayerStats(self)

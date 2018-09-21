@@ -2,8 +2,8 @@ import json
 
 #Player Match Stats
 class PlayerStats:
-    def __init__(self):
-        pass
+    def __init__(self, god):
+        self.god = god
     def storePlayerId(self, playerId):
         self.playerId = playerId
     def setPlayerInfo(self, jsonPlayerInfo):

@@ -8,10 +8,10 @@ class CombinedLogic:
 
 
     def storeRecentMatchs(self, player):
-        self.god.pl.getPlayerInfo(player)
+        self.god.pl.getPlayerInfo()
         storedRecentMatchId = self.god.sl.getRecentMatchId()
-        matchIds = self.god.pl.getUnstoredMatchIds(storedRecentMatchId)
-        for matchId in matchIds:
+        matchIds = self.god.pl.getUnstoredMatchIds()
+        for matchId in self.god.pl.matchIds:
             self.storeMatch(str(matchId))
 
     def storeMatch(self, matchId):
@@ -19,7 +19,6 @@ class CombinedLogic:
         jsonMatchStats = self.god.pl.getMatchStats(matchId)
         jsonMatchStats = self.god.pl.getPlayerMatchStats(jsonMatchStats)
         self.god.pl.storePMSintoPMS(jsonMatchStats)
-        pms = self.god.pl.getPms()
-        self.god.sl.appendPms(pms)
+        self.god.sl.appendPms()
 
 
