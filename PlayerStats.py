@@ -2,22 +2,29 @@ import json
 
 #Player Match Stats
 class PlayerStats:
-    def __init__(self, god):
-        self.god = god
-    def storePlayerId(self, playerId):
-        self.playerId = playerId
-    def setPlayerInfo(self, jsonPlayerInfo):
-        self.jsonPlayerInfo = jsonPlayerInfo
-    def storeMatchHistory(self, jsonMatchHistory):
-        self.jsonMatchHistory = jsonMatchHistory
-    def setMatchId(self, matchId):
-        self.matchId = matchId
-    def storeStrObj(self, strPms):
-        self.strPms = strPms
-    def storeJsonObj(self, jsonObj):
-        self.jsonPMS = jsonObj
-    def storeMatchStats(self, playerStats):
-        self.array = [str(playerStats["DBNOs"]),
+    def __init__(s):
+        pass
+
+    def storePlayerId(s, pId):
+        s.pId = pId
+
+    def setPlayerInfo(s, jsonPlayerInfo):
+        s.jsonPlayerInfo = jsonPlayerInfo
+
+    def storeMatchHistory(s, jsonMatchHistory):
+        s.jsonMatchHistory = jsonMatchHistory
+
+    def setMatchId(s, matchId):
+        s.matchId = matchId
+
+    def storeStrObj(s, strPms):
+        s.strPms = strPms
+
+    def storeJsonObj(s, jsonObj):
+        s.jsonPMS = jsonObj
+
+    def storeMatchStats(s, playerStats):
+        s.array = [str(playerStats["DBNOs"]),
         str(playerStats["assists"]),
         str(playerStats["boosts"]),
         str(playerStats["damageDealt"]),
@@ -47,4 +54,4 @@ class PlayerStats:
         str(playerStats["winPlace"]),
         str(playerStats["winPoints"]),
         str(playerStats["winPointsDelta"]),
-        self.matchId]
+        s.matchId]
