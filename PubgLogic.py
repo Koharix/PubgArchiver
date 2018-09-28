@@ -34,19 +34,21 @@ class PubgLogic:
         s.matchIds = []
         for jsonPlayerInfo in s.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]:
             if recentMatchId == jsonPlayerInfo["id"]:
+                print("HELLO THERE" + len(s.matchIds))
                 return s.matchIds
             else:
                 s.matchIds.append(jsonPlayerInfo["id"])
+        return s.matchIds
 
-    def getMatchStats(s):
-        rUrl = 'matches/' + s.matchId
+    def getMatchStats(s, matchId):
+        rUrl = 'matches/' + matchId
         return json.load(io.StringIO(requests.get(s.bUrl + rUrl, headers=s.headers).text))
 
-    def getPlayerMatchStats(s):
-        for jsonMatchStats in s.jsonMatchStats["included"]:
+    def getPlayerMatchStats(s, jsonMatchStats):
+        for jsonMatchStatsIncluded in jsonMatchStats["included"]:
             try:
-                if jsonMatchStats["attributes"]["stats"]["playerId"] == s.pId:
-                    jsonPlayerStats = jsonMatchStats["attributes"]["stats"]
+                if jsonMatchStatsIncluded["attributes"]["stats"]["playerId"] == s.pId:
+                    jsonPlayerStats = jsonMatchStatsIncluded["attributes"]["stats"]
                     # s.god.ps.storeStrObj(str(jsonPlayerStats))
                     # s.god.ps.storeJsonObj(jsonPlayerStats)
                     return jsonPlayerStats
