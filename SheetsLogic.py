@@ -35,8 +35,7 @@ class SheetsLogic:
         response = request.execute()
         pprint(response)
 
-    def appendPms(s, matchId, array):
-        s.setRecentMatchId(matchId)
+    def appendPms(s, array):
         range_ = 'Sheet1!B2:Z'
         value_input_option = "RAW"
         insert_data_option = "INSERT_ROWS"
@@ -49,6 +48,5 @@ class SheetsLogic:
         request = s.service.spreadsheets().values().append(spreadsheetId=s.sId, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
         response = request.execute()
         pprint(response)
-        s.setRecentMatchId(matchId)
 
 
