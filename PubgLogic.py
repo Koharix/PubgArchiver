@@ -4,6 +4,7 @@ import io
 import PlayerStats
 
 class PubgLogic:
+
     def __init__(s):
         s.ps = PlayerStats.PlayerStats()
         with open('userInput.json', 'r') as userInputFile:
@@ -14,7 +15,7 @@ class PubgLogic:
             s.headers = {'Authorization':'Bearer ' + userInput["pubgApiKey"], 'Accept':'application/vnd.api+json'}
 
     def getPlayerRecentMatchStat(s):
-        s.ps.storeMatchStats(s.getPlayerMatchStats(s.getMatchStats(s.getRecentMatchId(s.getPlayerInfo(s.player1)))))
+        s.ps.storeMatchStats(s.getPlayerMatchStats(s.getMatchStats(s.getRecentMatchId(PubgLogic.getPlayerInfo(s.player1)))))
 
     def getPlayerInfo(s):
         rUrl = 'players?filter[playerNames]=' + s.player1
