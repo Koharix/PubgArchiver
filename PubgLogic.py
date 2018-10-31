@@ -11,16 +11,16 @@ class PubgLogic:
             userInput = json.load(userInputFile)
             s.player1 = userInput["player1"]
             s.player2 = userInput["player2"]
-            s.bUrl = 'https://api.pubg.com/shards/pc-' + userInput["region"] + '/'
+            s.baseUrl = 'https://api.pubg.com/shards/pc-' + userInput["region"] + '/'
             s.headers = {'Authorization':'Bearer ' + userInput["pubgApiKey"], 'Accept':'application/vnd.api+json'}
 
     def getPlayerRecentMatchStat(s):
         s.ps.storeMatchStats(s.getPlayerMatchStats(s.getMatchStats(s.getRecentMatchId(PubgLogic.getPlayerInfo(s.player1)))))
 
     def getPlayerInfo(s):
-        rUrl = 'players?filter[playerNames]=' + s.player1
-        s.jsonPlayerInfo = json.load(io.StringIO(requests.get(s.bUrl + rUrl, headers=s.headers).text))
-        s.pId = s.jsonPlayerInfo["data"][0]["id"]
+        relativeUrl = 'players?filter[playerNames]=' + s.player1
+        s.jsonPlayerInfo = json.load(io.StringIO(requests.get(s.baseUrl + relativeUrl, headers=s.headers).text))
+        s.playerId = s.jsonPlayerInfo["data"][0]["id"]
         return s.jsonPlayerInfo
 
     def getMatchHistory(s):
@@ -42,16 +42,14 @@ class PubgLogic:
         return s.matchIds
 
     def getMatchStats(s, matchId):
-        rUrl = 'matches/' + matchId
-        return json.load(io.StringIO(requests.get(s.bUrl + rUrl, headers=s.headers).text))
+        relativeUrl = 'matches/' + matchId
+        return json.load(io.StringIO(requests.get(s.baseUrl + relativeUrl, headers=s.headers).text))
 
     def getPlayerMatchStats(s, jsonMatchStats):
         for jsonMatchStatsIncluded in jsonMatchStats["included"]:
             try:
-                if jsonMatchStatsIncluded["attributes"]["stats"]["playerId"] == s.pId:
+                if jsonMatchStatsIncluded["attributes"]["stats"]["playerId"] == s.playerId:
                     jsonPlayerStats = jsonMatchStatsIncluded["attributes"]["stats"]
-                    # s.god.ps.storeStrObj(str(jsonPlayerStats))
-                    # s.god.ps.storeJsonObj(jsonPlayerStats)
                     return jsonPlayerStats
             except KeyError:
                 pass
