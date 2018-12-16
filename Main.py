@@ -2,4 +2,4 @@ import CombinedLogic
 
 
 cl = CombinedLogic.CombinedLogic()
-cl.storeRecentMatchs()
+cl.store_recent_matchs()

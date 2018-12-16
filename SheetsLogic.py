@@ -5,27 +5,28 @@ from oauth2client import file, tools
 from google.oauth2 import service_account
 import json
 
-class SheetsLogic:
-    def __init__(s, playerStats):
-        s.service = s.getService()
-        s.playerStats = playerStats
-        with open('userInput.json', 'r') as uIF:
-            s.spreadsheetId = json.load(uIF)["spreadsheetId"]
 
-    def getService(s):
+class SheetsLogic:
+    def __init__(self, playerStats):
+        self.service = self.get_service()
+        self.playerStats = playerStats
+        with open('userInput.json', 'r') as uIF:
+            self.spreadsheetId = json.load(uIF)["spreadsheetId"]
+
+    def get_service(self):
         SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
         SERVICE_ACCOUNT_FILE = 'googleCreds.json'
         credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-        s.service = discovery.build('sheets', 'v4', credentials=credentials)
+        self.service = discovery.build('sheets', 'v4', credentials=credentials)
 
-    def getRecentMatchId(s):
+    def get_recent_match_id(self):
         rangeName = 'Sheet1!A1:A1'
-        result = s.service.spreadsheets().values().get(spreadsheetId=s.spreadsheetId, range=rangeName).execute()
+        result = self.service.spreadsheets().values().get(spreadsheetId=self.spreadsheetId, range=rangeName).execute()
         recentMatchId = result.get('values') if result.get('values') is not None else 0
         return recentMatchId
 
-    def setRecentMatchId(s, matchId):
+    def set_recent_match_id(self, matchId):
         range = 'Sheet1!A1:A1'
         valueInputOption = "RAW"
         valueRangeBody = {
@@ -34,11 +35,14 @@ class SheetsLogic:
                 [matchId]
             ]
         }
-        request = s.service.spreadsheets().values().update(spreadsheetId=s.spreadsheetId, range=range, valueInputOption=valueInputOption, body=valueRangeBody)
+        request = self.service.spreadsheets().values().update(spreadsheetId=self.spreadsheetId,
+                                                              range=range,
+                                                              valueInputOption=valueInputOption,
+                                                              body=valueRangeBody)
         response = request.execute()
         pprint(response)
 
-    def appendPms(s, array):
+    def append_pms(self, array):
         range = 'Sheet1!B2:Z'
         valueInputOption = "RAW"
         insert_data_option = "INSERT_ROWS"
@@ -48,7 +52,11 @@ class SheetsLogic:
                 array
             ]
         }
-        request = s.service.spreadsheets().values().append(spreadsheetId=s.spreadsheetId, range=range, valueInputOption=valueInputOption, insertDataOption=insert_data_option, body=valueRangeBody)
+        request = self.service.spreadsheets().values().append(spreadsheetId=self.spreadsheetId,
+                                                              range=range,
+                                                              valueInputOption=valueInputOption,
+                                                              insertDataOption=insert_data_option,
+                                                              body=valueRangeBody)
         response = request.execute()
         pprint(response)
 
