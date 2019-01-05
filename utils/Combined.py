@@ -1,12 +1,12 @@
 from utils import Sheets, Pubg, Stats
 
 
-class CombinedLogic:
+class Combined:
 
     def __init__(self):
-        self.ps = Stats.PlayerStats()
-        self.pl = Pubg.PubgLogic()
-        self.sl = Sheets.SheetsLogic(self.ps)
+        self.ps = Stats.Stats()
+        self.pl = Pubg.Pubg()
+        self.sl = Sheets.Sheets(self.ps)
 
     def store_recent_matchs(self):
         self.pl.get_player_info()

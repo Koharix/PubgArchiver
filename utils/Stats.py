@@ -1,6 +1,6 @@
 
 
-class PlayerStats:
+class Stats:
     def __init__(self):
         self.p_id = None                # player id
         self.matchId = None             # match id

@@ -6,7 +6,7 @@ from google.oauth2 import service_account
 import json
 
 
-class SheetsLogic:
+class Sheets:
     def __init__(self, playerStats):
         self.service = self.get_service()
         self.playerStats = playerStats

@@ -4,10 +4,10 @@ import io
 from utils import Stats
 
 
-class PubgLogic:
+class Pubg:
 
     def __init__(self):
-        self.ps = Stats.PlayerStats()
+        self.ps = Stats.Stats()
         with open('userInput.json', 'r') as userInputFile:
             userInput = json.load(userInputFile)
             self.player1 = userInput["player1"]

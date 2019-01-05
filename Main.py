@@ -1,4 +1,4 @@
 from utils import Combined
 
-cl = Combined.CombinedLogic()
+cl = Combined.Combined()
 cl.store_recent_matchs()
