@@ -1,13 +1,13 @@
 import requests
 import json
 import io
-import PlayerStats
+from utils import Stats
 
 
 class PubgLogic:
 
     def __init__(self):
-        self.ps = PlayerStats.PlayerStats()
+        self.ps = Stats.PlayerStats()
         with open('userInput.json', 'r') as userInputFile:
             userInput = json.load(userInputFile)
             self.player1 = userInput["player1"]
@@ -22,8 +22,8 @@ class PubgLogic:
         return self.jsonPlayerInfo
 
     def get_match_history(self):
-        self.jsonMatchHistory = self.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]
-        return self.jsonMatchHistory
+        self.json_match_history = self.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"]
+        return self.json_match_history
 
     def get_recent_matchId(self):
         self.matchId = self.jsonPlayerInfo["data"][0]["relationships"]["matches"]["data"][0]["id"]

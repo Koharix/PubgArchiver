@@ -1,7 +1,6 @@
-import SheetsLogic
-import PlayerStats
+from utils import Sheets, Stats
 
-ps = PlayerStats.PlayerStats()
-sl = SheetsLogic.SheetsLogic(ps)
+ps = Stats.PlayerStats()
+sl = Sheets.SheetsLogic(ps)
 print(sl.get_recent_match_id())
 sl.set_recent_match_id('hellothere2')

@@ -1,5 +1,4 @@
-import CombinedLogic
+from utils import Combined
 
-
-cl = CombinedLogic.CombinedLogic()
+cl = Combined.CombinedLogic()
 cl.store_recent_matchs()

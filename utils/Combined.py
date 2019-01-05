@@ -1,14 +1,12 @@
-import SheetsLogic
-import PlayerStats
-import PubgLogic
+from utils import Sheets, Pubg, Stats
 
 
 class CombinedLogic:
 
     def __init__(self):
-        self.ps = PlayerStats.PlayerStats()
-        self.pl = PubgLogic.PubgLogic()
-        self.sl = SheetsLogic.SheetsLogic(self.ps)
+        self.ps = Stats.PlayerStats()
+        self.pl = Pubg.PubgLogic()
+        self.sl = Sheets.SheetsLogic(self.ps)
 
     def store_recent_matchs(self):
         self.pl.get_player_info()
@@ -22,8 +20,8 @@ class CombinedLogic:
 
     def store_match(self, matchId):
         self.ps.set_match_id(matchId)
-        jsonMatchStats = self.pl.get_match_stats(matchId)
-        jsonPlayerStats = self.pl.get_player_match_stats(jsonMatchStats)
+        json_match_stats = self.pl.get_match_stats(matchId)
+        jsonPlayerStats = self.pl.get_player_match_stats(json_match_stats)
         self.ps.store_match_stats(jsonPlayerStats)
         self.sl.append_pms(matchId, self.ps.array)
 
